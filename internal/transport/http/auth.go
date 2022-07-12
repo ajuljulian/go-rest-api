@@ -13,6 +13,7 @@ func JWTAuth(original func(w http.ResponseWriter, r *http.Request)) func(w http.
 		authHeader := r.Header["Authorization"]
 		if authHeader == nil {
 			http.Error(w, "not authorized", http.StatusUnauthorized)
+			return
 		}
 
 		// Bearer token-string
