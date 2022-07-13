@@ -17,7 +17,7 @@ tasks:
     cmds:
       - docker-compose up --build
 
-  integration-test:
+  integration-tests:
     cmds:
       - docker-compose up -d db
       - go test -tags=integration -v ./...
