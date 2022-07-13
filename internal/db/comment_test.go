@@ -30,4 +30,21 @@ func TestCommentDatabase(t *testing.T) {
 
 		fmt.Println("testing the creation of comments")
 	})
+
+	t.Run("test delete comment", func(t *testing.T) {
+		db, err := NewDatabase()
+		assert.NoError(t, err)
+		cmt, err := db.PostComment(context.Background(), comment.Comment{
+			Slug:   "new-slug",
+			Author: "elliot",
+			Body:   "body",
+		})
+		assert.NoError(t, err)
+
+		err = db.DeleteComment(context.Background(), cmt.ID)
+		assert.NoError(t, err)
+
+		_, err = db.GetComment(context.Background(), cmt.ID)
+		assert.Error(t, err)
+	})
 }
